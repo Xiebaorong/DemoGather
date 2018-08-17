@@ -34,7 +34,8 @@
         <activity
             android:name=".horizontalSlip.HorizontalSlipActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".logdemo.LogActivity"></activity>
+        <activity android:name=".logdemo.LogActivity" />
+        <activity android:name=".observerPattern.StartActivity"></activity>
     </application>
 
 </manifest>
