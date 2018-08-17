@@ -35,7 +35,10 @@
             android:name=".horizontalSlip.HorizontalSlipActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".logdemo.LogActivity" />
-        <activity android:name=".observerPattern.StartActivity"></activity>
+        <activity android:name=".observerPattern.StartActivity" />
+        <activity
+            android:name=".multipleSet.MultipleSetActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

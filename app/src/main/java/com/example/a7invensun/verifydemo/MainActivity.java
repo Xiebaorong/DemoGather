@@ -15,6 +15,7 @@ import com.example.a7invensun.verifydemo.bottonClickDiffusion.DiffusionActivity;
 import com.example.a7invensun.verifydemo.horizontalSlip.HorizontalSlipActivity;
 import com.example.a7invensun.verifydemo.lockscreen.StartLockServiceActivity;
 import com.example.a7invensun.verifydemo.logdemo.LogActivity;
+import com.example.a7invensun.verifydemo.multipleSet.MultipleSetActivity;
 import com.example.a7invensun.verifydemo.observerPattern.StartActivity;
 import com.example.a7invensun.verifydemo.slide.SlideActivity;
 import com.example.a7invensun.verifydemo.statusBar.StatusBarShowActivity;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "水平滑动", new Intent(this, HorizontalSlipActivity.class)));
         list.add(new ListData(this, "Log管理", new Intent(this, LogActivity.class)));
         list.add(new ListData(this, "观察者模式", new Intent(this, StartActivity.class)));
-//        list.add(new ListData(this, "设置界面UI封装", new Intent(this, MultipleSetActivity.class)));
+        list.add(new ListData(this, "设置界面UI封装", new Intent(this, MultipleSetActivity.class)));
         Log.e(TAG, "initList: "+list.size());
         return list;
     }
