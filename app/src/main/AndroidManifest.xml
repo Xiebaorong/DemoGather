@@ -39,7 +39,8 @@
         <activity
             android:name=".multipleSet.MultipleSetActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".dialog.DialogActivity"></activity>
+        <activity android:name=".dialog.DialogActivity" />
+        <activity android:name=".greendao.GreenDaoActivity"></activity>
     </application>
 
 </manifest>

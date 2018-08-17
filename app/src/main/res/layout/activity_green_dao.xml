@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/add_greenDao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="增"
+        android:textSize="25sp"
+        />
+    <Button
+        android:id="@+id/del_greenDao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="删"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"
+        />
+    <Button
+        android:id="@+id/update_greenDao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="改"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"
+        />
+    <Button
+        android:id="@+id/find_greenDao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"
+        />
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_query_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="根据ID查询(分页查询)" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+            android:text="删除全部" />
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+</LinearLayout>

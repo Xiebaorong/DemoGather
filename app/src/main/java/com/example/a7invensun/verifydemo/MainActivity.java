@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.a7invensun.verifydemo.adapter.MyActivityAdapter;
 import com.example.a7invensun.verifydemo.bottonClickDiffusion.DiffusionActivity;
 import com.example.a7invensun.verifydemo.dialog.DialogActivity;
+import com.example.a7invensun.verifydemo.greendao.GreenDaoActivity;
 import com.example.a7invensun.verifydemo.horizontalSlip.HorizontalSlipActivity;
 import com.example.a7invensun.verifydemo.lockscreen.StartLockServiceActivity;
 import com.example.a7invensun.verifydemo.logdemo.LogActivity;
@@ -58,12 +59,11 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "锁屏", new Intent(this, StartLockServiceActivity.class)));
         list.add(new ListData(this, "Log管理(无样式，log输出)", new Intent(this, LogActivity.class)));
         list.add(new ListData(this, "水平滑动", new Intent(this, HorizontalSlipActivity.class)));
+        list.add(new ListData(this, "GreenDao框架Demo", new Intent(this, GreenDaoActivity.class)));
         list.add(new ListData(this, "自定义弹框", new Intent(this, DialogActivity.class)));
         list.add(new ListData(this, "状态栏样式", new Intent(this, StatusBarShowActivity.class)));
         list.add(new ListData(this, "按钮点击水波反馈", new Intent(this, DiffusionActivity.class)));
-        list.add(new ListData(this, "greenDao", new Intent(this, GreenDaoActivity.class)));
         list.add(new ListData(this, "滑动", new Intent(this, SlideActivity.class)));
-
 
         Log.e(TAG, "initList: "+list.size());
         return list;
