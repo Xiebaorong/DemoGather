@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.a7invensun.verifydemo.adapter.MyActivityAdapter;
 import com.example.a7invensun.verifydemo.util.ListData;
 
 import java.util.ArrayList;
