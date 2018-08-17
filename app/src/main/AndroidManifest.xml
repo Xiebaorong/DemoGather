@@ -26,7 +26,8 @@
 
         <activity android:name=".lockscreen.LockScreenActivity" />
         <activity android:name=".bottonClickDiffusion.DiffusionActivity" />
-        <activity android:name=".slide.SlideActivity"></activity>
+        <activity android:name=".slide.SlideActivity" />
+        <activity android:name=".horizontalSlip.HorizontalSlipActivity"></activity>
     </application>
 
 </manifest>

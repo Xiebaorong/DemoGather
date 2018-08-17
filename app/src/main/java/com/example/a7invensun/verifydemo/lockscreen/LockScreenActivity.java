@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.example.a7invensun.verifydemo.R;
+import com.example.a7invensun.verifydemo.lockscreen.util.SildingFinishLayout;
 
 public class LockScreenActivity extends AppCompatActivity {
     private static final String TAG = "LockScreenActivity";

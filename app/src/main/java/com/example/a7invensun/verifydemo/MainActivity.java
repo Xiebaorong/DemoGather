@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "按钮点击水波反馈", new Intent(this, DiffusionActivity.class)));
 //        list.add(new ListData(this, "greenDao", new Intent(this, GreenDaoActivity.class)));
         list.add(new ListData(this, "滑动", new Intent(this, SlideActivity.class)));
-//        list.add(new ListData(this, "水平滑动", new Intent(this, HorizontalSlipActivity.class)));
+        list.add(new ListData(this, "水平滑动", new Intent(this, HorizontalSlipActivity.class)));
 //        list.add(new ListData(this, "Log管理", new Intent(this, LogActivity.class)));
 //        list.add(new ListData(this, "观察者模式", new Intent(this, StartActivity.class)));
 //        list.add(new ListData(this, "设置界面UI封装", new Intent(this, MultipleSetActivity.class)));
