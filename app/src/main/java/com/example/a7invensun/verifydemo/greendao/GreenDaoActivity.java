@@ -50,7 +50,7 @@ public class GreenDaoActivity extends AppCompatActivity {
 
     private List<Student> studentList = new ArrayList<>();
     private void initData() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             Student student = new Student((long) i, "huang" + i, "sna"+i);
             studentList.add(student);
         }
@@ -101,9 +101,10 @@ public class GreenDaoActivity extends AppCompatActivity {
                 for (Student st : students2) {
                     Log.e("TAG", "onViewClicked: ==" + st);
                     Log.e("TAG", "onViewClicked: == num = " + st.getName());
+                    tv_content.setText(st.getName());
                 }
                 page++;
-                tv_content.setText(students2.toString());
+
                 break;
             case R.id.button5:
                 Log.e(TAG, "onClick: button5" );
