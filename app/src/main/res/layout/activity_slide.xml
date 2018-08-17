@@ -16,7 +16,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">
-        <com.example.a7invensun.datatoxml.lockscreen.util.SildingFinishLayout
+        <com.example.a7invensun.verifydemo.lockscreen.util.SildingFinishLayout
             android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -27,7 +27,7 @@
                 android:layout_height="50dp"
                 android:background="@mipmap/suo" />
 
-        </com.example.a7invensun.datatoxml.lockscreen.util.SildingFinishLayout>
+        </com.example.a7invensun.verifydemo.lockscreen.util.SildingFinishLayout>
     </RelativeLayout>
 
 

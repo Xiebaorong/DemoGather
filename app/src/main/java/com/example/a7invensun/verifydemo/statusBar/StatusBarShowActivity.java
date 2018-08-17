@@ -12,7 +12,7 @@ public class StatusBarShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status_bar_show);
-        StatusBarUtils.setWindowStatusBarColor(this,R.color.colorAccent);
+        StatusBarUtils.setWindowStatusBarColor(this,R.color.colorBlue);
     }
 
 }

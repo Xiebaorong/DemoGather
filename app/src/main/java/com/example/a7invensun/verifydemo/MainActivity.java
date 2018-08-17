@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "水平滑动", new Intent(this, HorizontalSlipActivity.class)));
         list.add(new ListData(this, "GreenDao框架Demo", new Intent(this, GreenDaoActivity.class)));
         list.add(new ListData(this, "自定义弹框", new Intent(this, DialogActivity.class)));
-        list.add(new ListData(this, "状态栏样式", new Intent(this, StatusBarShowActivity.class)));
+        list.add(new ListData(this, "状态栏样式、TextView滑动显示内容", new Intent(this, StatusBarShowActivity.class)));
         list.add(new ListData(this, "按钮点击水波反馈", new Intent(this, DiffusionActivity.class)));
         list.add(new ListData(this, "滑动", new Intent(this, SlideActivity.class)));
 
