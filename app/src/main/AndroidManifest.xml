@@ -25,7 +25,8 @@
         <service android:name=".lockscreen.LockScreenService" />
 
         <activity android:name=".lockscreen.LockScreenActivity" />
-        <activity android:name=".bottonClickDiffusion.DiffusionActivity"></activity>
+        <activity android:name=".bottonClickDiffusion.DiffusionActivity" />
+        <activity android:name=".slide.SlideActivity"></activity>
     </application>
 
 </manifest>

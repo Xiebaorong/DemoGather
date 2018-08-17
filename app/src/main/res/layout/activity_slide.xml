@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linear"
+    android:layout_gravity="center_vertical"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/toright"
+        android:layout_marginLeft="70dp"
+
+        >
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <com.example.a7invensun.datatoxml.lockscreen.util.SildingFinishLayout
+            android:id="@+id/relative"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@mipmap/suo" />
+
+        </com.example.a7invensun.datatoxml.lockscreen.util.SildingFinishLayout>
+    </RelativeLayout>
+
+
+
+
+</FrameLayout>

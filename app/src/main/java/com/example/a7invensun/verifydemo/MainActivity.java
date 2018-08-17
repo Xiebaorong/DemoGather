@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.a7invensun.verifydemo.adapter.MyActivityAdapter;
 import com.example.a7invensun.verifydemo.bottonClickDiffusion.DiffusionActivity;
 import com.example.a7invensun.verifydemo.lockscreen.StartLockServiceActivity;
+import com.example.a7invensun.verifydemo.slide.SlideActivity;
 import com.example.a7invensun.verifydemo.statusBar.StatusBarShowActivity;
 import com.example.a7invensun.verifydemo.util.ListData;
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "锁屏", new Intent(this, StartLockServiceActivity.class)));
         list.add(new ListData(this, "按钮点击水波反馈", new Intent(this, DiffusionActivity.class)));
 //        list.add(new ListData(this, "greenDao", new Intent(this, GreenDaoActivity.class)));
-//        list.add(new ListData(this, "滑动", new Intent(this, SlideActivity.class)));
+        list.add(new ListData(this, "滑动", new Intent(this, SlideActivity.class)));
 //        list.add(new ListData(this, "水平滑动", new Intent(this, HorizontalSlipActivity.class)));
 //        list.add(new ListData(this, "Log管理", new Intent(this, LogActivity.class)));
 //        list.add(new ListData(this, "观察者模式", new Intent(this, StartActivity.class)));
