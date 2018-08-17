@@ -13,5 +13,13 @@ public class StartLockServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_lock_service);
         startService(new Intent(this, LockScreenService.class));
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(this, LockScreenService.class));
     }
 }

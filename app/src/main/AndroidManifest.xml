@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".statusBar.StatusBarShowActivity" />
-        <activity android:name=".lockscreen.StartLockServiceActivity" />
+        <activity android:name=".lockscreen.StartLockServiceActivity"
+            android:launchMode="singleTask"
+            />
 
         <service android:name=".lockscreen.LockScreenService" />
 

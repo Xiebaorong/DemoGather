@@ -49,9 +49,6 @@ public class LockScreenService extends Service {
     public void onDestroy() {
         unregisterReceiver(receiver);
         super.onDestroy();
-        Intent localIntent = new Intent();
-        localIntent.setClass(this, LockScreenService.class); //销毁时重新启动Service
-        this.startService(localIntent);
     }
 
 }
