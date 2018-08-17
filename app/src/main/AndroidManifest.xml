@@ -38,7 +38,8 @@
         <activity android:name=".observerPattern.StartActivity" />
         <activity
             android:name=".multipleSet.MultipleSetActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
+        <activity android:name=".dialog.DialogActivity"></activity>
     </application>
 
 </manifest>
