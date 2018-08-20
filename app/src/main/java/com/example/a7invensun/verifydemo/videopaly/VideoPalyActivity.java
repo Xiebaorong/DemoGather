@@ -43,6 +43,8 @@ public class VideoPalyActivity extends AppCompatActivity implements UniversalVid
         }
             mMediaController.hideComplete();
         mVideoView.setVideoViewCallback(this);
+
+        //不添加会导致无视频播放时点击窗口转换，程序会崩溃。
         mMediaController.setMediaPlayer(this);
         Uri uri = Uri.parse("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
         mVideoView.setVideoURI(uri);
