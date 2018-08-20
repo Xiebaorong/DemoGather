@@ -4,8 +4,7 @@
 
     <!-- 锁屏权限 -->
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- 数据库存储权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -54,11 +53,11 @@
         <activity android:name=".dialog.DialogActivity" />
         <activity android:name=".greendao.GreenDaoActivity" />
         <activity android:name=".judgeNetworkConnected.NetWorkConnectedActivity" />
-        <activity android:name=".videopaly.VideoPalyActivity"
+        <activity
+            android:name=".videopaly.VideoPalyActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/VideoAppTheme"
-            >
-        </activity>
+            android:theme="@style/VideoAppTheme"></activity>
+        <activity android:name=".animation.AnimationActivity"></activity>
     </application>
 
 </manifest>

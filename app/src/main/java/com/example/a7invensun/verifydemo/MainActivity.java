@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.a7invensun.verifydemo.adapter.MyActivityAdapter;
+import com.example.a7invensun.verifydemo.animation.AnimationActivity;
 import com.example.a7invensun.verifydemo.bottonClickDiffusion.DiffusionActivity;
 import com.example.a7invensun.verifydemo.dialog.DialogActivity;
 import com.example.a7invensun.verifydemo.greendao.GreenDaoActivity;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "滑动", new Intent(this, SlideActivity.class)));
         list.add(new ListData(this, "网络状态", new Intent(this, NetWorkConnectedActivity.class)));
         list.add(new ListData(this, "视频播放", new Intent(this, VideoPalyActivity.class)));
+        list.add(new ListData(this, "动画", new Intent(this, AnimationActivity.class)));
 
         Log.e(TAG, "initList: "+list.size());
         return list;
