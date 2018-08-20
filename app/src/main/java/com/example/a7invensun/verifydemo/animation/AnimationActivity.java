@@ -75,13 +75,12 @@ public class AnimationActivity extends AppCompatActivity {
     }
 
     /**
-     * 平移
+     * 平移旋转
      *
      * @return
      */
     private AnimatorSet translationOrRotationAnimation() {
         AnimatorSet animatorSet = new AnimatorSet();
-
         ObjectAnimator rota = ObjectAnimator.ofFloat(imageView, "rotation", 0, 360, 0);
         ObjectAnimator tran = ObjectAnimator.ofFloat(imageView, "translationX", 400, 0);
         animatorSet.play(rota).with(tran);
@@ -90,7 +89,7 @@ public class AnimationActivity extends AppCompatActivity {
     }
 
     /**
-     * 平移
+     * 扩大旋转
      *
      * @return
      */
@@ -98,7 +97,7 @@ public class AnimationActivity extends AppCompatActivity {
         AnimatorSet animatorSet = new AnimatorSet();
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 1f, 2f);
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(imageView, "scaleY", 1f, 2f);
-        ObjectAnimator rota = ObjectAnimator.ofFloat(imageView, "rotation", 0,360, 0);
+        ObjectAnimator rota = ObjectAnimator.ofFloat(imageView, "rotation", 0, 360, 0);
         animatorSet.play(scaleX).with(scaleY).with(rota);
         animatorSet.setDuration(1000);
         return animatorSet;
