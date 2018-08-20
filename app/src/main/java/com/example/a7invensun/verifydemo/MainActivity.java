@@ -15,6 +15,7 @@ import com.example.a7invensun.verifydemo.bottonClickDiffusion.DiffusionActivity;
 import com.example.a7invensun.verifydemo.dialog.DialogActivity;
 import com.example.a7invensun.verifydemo.greendao.GreenDaoActivity;
 import com.example.a7invensun.verifydemo.horizontalSlip.HorizontalSlipActivity;
+import com.example.a7invensun.verifydemo.judgeNetworkConnected.NetWorkConnectedActivity;
 import com.example.a7invensun.verifydemo.lockscreen.StartLockServiceActivity;
 import com.example.a7invensun.verifydemo.logdemo.LogActivity;
 import com.example.a7invensun.verifydemo.multipleSet.MultipleSetActivity;
@@ -22,6 +23,7 @@ import com.example.a7invensun.verifydemo.observerPattern.StartActivity;
 import com.example.a7invensun.verifydemo.slide.SlideActivity;
 import com.example.a7invensun.verifydemo.statusBar.StatusBarShowActivity;
 import com.example.a7invensun.verifydemo.util.ListData;
+import com.example.a7invensun.verifydemo.videopaly.VideoPalyActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "状态栏样式、TextView滑动显示内容", new Intent(this, StatusBarShowActivity.class)));
         list.add(new ListData(this, "按钮点击水波反馈", new Intent(this, DiffusionActivity.class)));
         list.add(new ListData(this, "滑动", new Intent(this, SlideActivity.class)));
+        list.add(new ListData(this, "网络状态", new Intent(this, NetWorkConnectedActivity.class)));
+        list.add(new ListData(this, "视频播放", new Intent(this, VideoPalyActivity.class)));
 
         Log.e(TAG, "initList: "+list.size());
         return list;
