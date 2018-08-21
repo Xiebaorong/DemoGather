@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.a7invensun.verifydemo.language.LanguageActivity">
+
+    <TextView
+        android:id="@+id/language_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/language"
+        android:gravity="center"
+        />
+    <LinearLayout
+        android:layout_below="@id/language_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chinese"
+            android:onClick="chineseClick"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/english"
+            android:onClick="englishClick"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Japanese"
+            android:onClick="japaneseClick"
+            />
+    </LinearLayout>
+</RelativeLayout>

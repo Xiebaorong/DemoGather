@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">VerifyDemo</string>
+    <string name="app_name">验证测试</string>
+    <string name="language">语言</string>
+    <string name="chinese">中文</string>
+    <string name="english">英文</string>
+    <string name="Japanese">日文</string>
 </resources>
+

@@ -2,8 +2,8 @@ package com.example.a7invensun.verifydemo;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +17,7 @@ import com.example.a7invensun.verifydemo.dialog.DialogActivity;
 import com.example.a7invensun.verifydemo.greendao.GreenDaoActivity;
 import com.example.a7invensun.verifydemo.horizontalSlip.HorizontalSlipActivity;
 import com.example.a7invensun.verifydemo.judgeNetworkConnected.NetWorkConnectedActivity;
+import com.example.a7invensun.verifydemo.language.LanguageActivity;
 import com.example.a7invensun.verifydemo.lockscreen.StartLockServiceActivity;
 import com.example.a7invensun.verifydemo.logdemo.LogActivity;
 import com.example.a7invensun.verifydemo.multipleSet.MultipleSetActivity;
@@ -39,11 +40,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ListView listView = findViewById(R.id.show_demo);
         final List<ListData> listData = initList();
-
-
         MyActivityAdapter adapter  = new MyActivityAdapter(this,listData);
         listView.setAdapter(adapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @SuppressLint("ResourceType")
             @Override
@@ -70,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "网络状态", new Intent(this, NetWorkConnectedActivity.class)));
         list.add(new ListData(this, "视频播放", new Intent(this, VideoPalyActivity.class)));
         list.add(new ListData(this, "动画", new Intent(this, AnimationActivity.class)));
+        list.add(new ListData(this, "中英文切换", new Intent(this, LanguageActivity.class)));
 
         Log.e(TAG, "initList: "+list.size());
         return list;

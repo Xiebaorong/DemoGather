@@ -56,8 +56,9 @@
         <activity
             android:name=".videopaly.VideoPalyActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/VideoAppTheme"></activity>
-        <activity android:name=".animation.AnimationActivity"></activity>
+            android:theme="@style/VideoAppTheme" />
+        <activity android:name=".animation.AnimationActivity" />
+        <activity android:name=".language.LanguageActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language">language</string>
+    <string name="app_name">VerifyDemo</string>
+    <string name="chinese">Chinese</string>
+    <string name="english">English</string>
+    <string name="Japanese">Japanese</string>
+</resources>
