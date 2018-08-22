@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.a7invensun.verifydemo.adapter.MyActivityAdapter;
 import com.example.a7invensun.verifydemo.animation.AnimationActivity;
 import com.example.a7invensun.verifydemo.bottonClickDiffusion.DiffusionActivity;
+import com.example.a7invensun.verifydemo.butterKnifeDemo.ButterKnifeActivity;
 import com.example.a7invensun.verifydemo.dialog.DialogActivity;
 import com.example.a7invensun.verifydemo.greendao.GreenDaoActivity;
 import com.example.a7invensun.verifydemo.horizontalSlip.HorizontalSlipActivity;
@@ -29,6 +30,8 @@ import com.example.a7invensun.verifydemo.videopaly.VideoPalyActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "视频播放", new Intent(this, VideoPalyActivity.class)));
         list.add(new ListData(this, "动画", new Intent(this, AnimationActivity.class)));
         list.add(new ListData(this, "中英文切换", new Intent(this, LanguageActivity.class)));
+        list.add(new ListData(this, "ButterKnife，Activity中有find 与 view.find 两种情况", new Intent(this, ButterKnifeActivity.class)));
 
         Log.e(TAG, "initList: "+list.size());
         return list;
