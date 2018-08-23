@@ -59,7 +59,8 @@
             android:theme="@style/VideoAppTheme" />
         <activity android:name=".animation.AnimationActivity" />
         <activity android:name=".language.LanguageActivity" />
-        <activity android:name=".butterKnifeDemo.ButterKnifeActivity"></activity>
+        <activity android:name=".butterKnifeDemo.ButterKnifeActivity" />
+        <activity android:name=".httpWeather.HttpWeatherActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.a7invensun.verifydemo.httpWeather.HttpWeatherActivity"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/msg_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <Button
+        android:id="@+id/getRe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="get"
+        android:onClick="getRequestModel"
+        />
+
+    <Button
+        android:id="@+id/getNewRe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="getNew"
+        android:onClick="getNewRequestModel"
+        />
+    <Button
+        android:id="@+id/postRe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="post"
+        android:onClick="postRequestModel"
+        />
+</LinearLayout>

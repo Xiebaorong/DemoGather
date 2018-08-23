@@ -17,6 +17,7 @@ import com.example.a7invensun.verifydemo.butterKnifeDemo.ButterKnifeActivity;
 import com.example.a7invensun.verifydemo.dialog.DialogActivity;
 import com.example.a7invensun.verifydemo.greendao.GreenDaoActivity;
 import com.example.a7invensun.verifydemo.horizontalSlip.HorizontalSlipActivity;
+import com.example.a7invensun.verifydemo.httpWeather.HttpWeatherActivity;
 import com.example.a7invensun.verifydemo.judgeNetworkConnected.NetWorkConnectedActivity;
 import com.example.a7invensun.verifydemo.language.LanguageActivity;
 import com.example.a7invensun.verifydemo.lockscreen.StartLockServiceActivity;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "动画", new Intent(this, AnimationActivity.class)));
         list.add(new ListData(this, "中英文切换", new Intent(this, LanguageActivity.class)));
         list.add(new ListData(this, "ButterKnife，Activity中有find 与 view.find 两种情况", new Intent(this, ButterKnifeActivity.class)));
+        list.add(new ListData(this, "OkHttp", new Intent(this, HttpWeatherActivity.class)));
 
         Log.e(TAG, "initList: "+list.size());
         return list;
