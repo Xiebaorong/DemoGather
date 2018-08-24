@@ -2,14 +2,17 @@ package com.example.a7invensun.verifydemo.httpWeather.util;
 
 import android.util.Log;
 
+import com.example.a7invensun.verifydemo.BaseApp;
 import com.example.a7invensun.verifydemo.httpWeather.callBack.BaseCallBack;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -24,6 +27,7 @@ import okhttp3.Response;
 
 public class OkHttpManager {
     private static final String TAG = "OkHttpManager";
+    private static final long DEFAULT_DIR_CACHE = 50 * 1024 * 1024;
     private static OkHttpManager instance;
     private OkHttpClient mOkHttpClient;
     private Gson mGson;
@@ -38,9 +42,18 @@ public class OkHttpManager {
     }
 
     public OkHttpManager() {
-        mOkHttpClient = new OkHttpClient();
-        mOkHttpClient.newBuilder().connectTimeout(10, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS);
+        File cacheFile = new File(BaseApp.getInstance().getExternalCacheDir(), "DemoCache");
+        Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
+
+        mOkHttpClient = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)//连接失败后是否重新连接
+                .connectTimeout(10, TimeUnit.SECONDS)//超时时间15S
+                 .addInterceptor(new NetInterceptorUtil())
+                .readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .cache(cache)
+                .build();
+        //.connectTimeout(10, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS)
         mGson = new Gson();
     }
 
@@ -65,18 +78,41 @@ public class OkHttpManager {
 
             }
         });
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                OkHttpClient okHttpClient = new OkHttpClient.Builder().addNetworkInterceptor(new LogInterceptor()).build();
+//                Request request = new Request.Builder()
+//                        .url("http://www.taobao.com")
+//                        .get()
+//                        .build();
+//                Call call = okHttpClient.newCall(request);
+//                try {
+//                    call.execute();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+
     }
 
+    /**
+     * post未封装
+     *
+     * @param url
+     * @param params
+     */
     public void poseRequest(String url, Map<String, String> params) {
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("platform", "Android")
                 .add("version", "1.0")
                 .add("key", "123456");
-//        if (params != null) {
-//            for (Map.Entry entry : params.entrySet()) {
-//                builder.add((String) entry.getKey(), (String) entry.getValue());
-//            }
-//        }
+        if (params != null) {
+            for (Map.Entry entry : params.entrySet()) {
+                builder.add((String) entry.getKey(), (String) entry.getValue());
+            }
+        }
         FormBody body = builder.build();
 
         final Request request = new Request.Builder()
@@ -92,7 +128,7 @@ public class OkHttpManager {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.e(TAG, "onResponse: "+response.code() );
+                Log.e(TAG, "onResponse: " + response.code());
                 if (response.code() == 200) {
                     String json = response.body().string();
                     Log.e(TAG, "onResponse: " + json);
@@ -101,7 +137,13 @@ public class OkHttpManager {
         });
     }
 
+
     public void newGetRequest(String url, Map<String, String> params, BaseCallBack callBack) {
+        Request request = buildRequest(url, params, HttpMethodType.GET);
+        doRequest(request, callBack);
+    }
+
+    public void newPostRequest(String url, Map<String, String> params, BaseCallBack callBack) {
         Request request = buildRequest(url, params, HttpMethodType.POST);
         doRequest(request, callBack);
     }
@@ -116,7 +158,6 @@ public class OkHttpManager {
             RequestBody requestBody = buildFormData(params);
             builder.post(requestBody);
         }
-
         return builder.build();
     }
 
@@ -154,7 +195,6 @@ public class OkHttpManager {
         callBack.onSuccess(call, response, result);
     }
 
-
     private RequestBody buildFormData(Map<String, String> params) {
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("platform", "Android")
@@ -167,6 +207,7 @@ public class OkHttpManager {
         }
         return builder.build();
     }
+
 
     enum HttpMethodType {
         GET, POST
