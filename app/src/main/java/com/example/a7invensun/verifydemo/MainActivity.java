@@ -24,6 +24,7 @@ import com.example.a7invensun.verifydemo.lockscreen.StartLockServiceActivity;
 import com.example.a7invensun.verifydemo.logdemo.LogActivity;
 import com.example.a7invensun.verifydemo.multipleSet.MultipleSetActivity;
 import com.example.a7invensun.verifydemo.observerPattern.StartActivity;
+import com.example.a7invensun.verifydemo.retrofitDemo.RetrofitActivity;
 import com.example.a7invensun.verifydemo.slide.SlideActivity;
 import com.example.a7invensun.verifydemo.statusBar.StatusBarShowActivity;
 import com.example.a7invensun.verifydemo.util.ListData;
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "中英文切换", new Intent(this, LanguageActivity.class)));
         list.add(new ListData(this, "ButterKnife，Activity中有find 与 view.find 两种情况", new Intent(this, ButterKnifeActivity.class)));
         list.add(new ListData(this, "OkHttp", new Intent(this, HttpWeatherActivity.class)));
+        list.add(new ListData(this, "Retrofit", new Intent(this, RetrofitActivity.class)));
 
         Log.e(TAG, "initList: "+list.size());
         return list;

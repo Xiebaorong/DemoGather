@@ -61,7 +61,8 @@
         <activity android:name=".animation.AnimationActivity" />
         <activity android:name=".language.LanguageActivity" />
         <activity android:name=".butterKnifeDemo.ButterKnifeActivity" />
-        <activity android:name=".httpWeather.HttpWeatherActivity"></activity>
+        <activity android:name=".httpWeather.HttpWeatherActivity" />
+        <activity android:name=".retrofitDemo.RetrofitActivity"></activity>
     </application>
 
 </manifest>

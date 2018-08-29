@@ -51,7 +51,7 @@ public class OkHttpManager {
                  .addInterceptor(new NetInterceptorUtil())
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
-                .cache(cache)
+                .cache(cache)//缓存器
                 .build();
         //.connectTimeout(10, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS)
         mGson = new Gson();

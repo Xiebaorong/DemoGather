@@ -44,4 +44,8 @@ dependencies {
     compile 'com.linsea:universalvideoview:1.1.0@aar'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.google.code.gson:gson:2.8.4'
+    //Retrofit 需加okhttp---- 由于Retrofit是基于OkHttp，所以还需要添加OkHttp库依赖 ,  设置数据解析器时还需添加Gson
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 }
