@@ -3,11 +3,13 @@
     package="com.example.a7invensun.verifydemo">
 
     <!-- 锁屏权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- 数据库存储权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 判断联网状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -62,7 +64,8 @@
         <activity android:name=".language.LanguageActivity" />
         <activity android:name=".butterKnifeDemo.ButterKnifeActivity" />
         <activity android:name=".httpWeather.HttpWeatherActivity" />
-        <activity android:name=".retrofitDemo.RetrofitActivity"></activity>
+        <activity android:name=".retrofitDemo.RetrofitActivity" />
+        <activity android:name=".cameraDemo.Camera2Activity"></activity>
     </application>
 
 </manifest>

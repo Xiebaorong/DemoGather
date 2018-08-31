@@ -14,6 +14,7 @@ import com.example.a7invensun.verifydemo.adapter.MyActivityAdapter;
 import com.example.a7invensun.verifydemo.animation.AnimationActivity;
 import com.example.a7invensun.verifydemo.bottonClickDiffusion.DiffusionActivity;
 import com.example.a7invensun.verifydemo.butterKnifeDemo.ButterKnifeActivity;
+import com.example.a7invensun.verifydemo.cameraDemo.Camera2Activity;
 import com.example.a7invensun.verifydemo.dialog.DialogActivity;
 import com.example.a7invensun.verifydemo.greendao.GreenDaoActivity;
 import com.example.a7invensun.verifydemo.horizontalSlip.HorizontalSlipActivity;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<ListData> initList() {
         List<ListData> list = new ArrayList<>();
+        list.add(new ListData(this, "Camera2", new Intent(this, Camera2Activity.class)));
         list.add(new ListData(this, "设置界面UI封装", new Intent(this, MultipleSetActivity.class)));
         list.add(new ListData(this, "观察者模式", new Intent(this, StartActivity.class)));
         list.add(new ListData(this, "锁屏", new Intent(this, StartLockServiceActivity.class)));
