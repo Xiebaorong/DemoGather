@@ -125,7 +125,7 @@ public class BmpUtil {
         out.write(addBMPImageHeader(bfSize), 0, 14);
         out.write(addBMPImageInfosHeader(width, -height, bitCount, bufSize), 0, 40);
         out.write(addBMPImageRGBQUAD(), 0, rgbQuadSize);
-        out.write(image, 0, width * height);
+        out.write(image, 0, image.length);
         out.flush();
         out.close();
     }

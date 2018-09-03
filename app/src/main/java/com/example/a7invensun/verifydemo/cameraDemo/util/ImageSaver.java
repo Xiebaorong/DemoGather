@@ -17,7 +17,7 @@ public class ImageSaver {
         mExecutor = Executors.newFixedThreadPool(10);
     }
 
-    public void save(final String fileNamePrefix, final byte[] image, final int width, final int height, long seq, final String dirName) {
+    public void save(final String fileNamePrefix, final byte[] image, final int width, final int height , final String dirName) {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {

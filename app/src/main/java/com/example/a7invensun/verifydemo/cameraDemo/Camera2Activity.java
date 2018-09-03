@@ -11,8 +11,6 @@ import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CameraMetadata;
-import android.hardware.camera2.CaptureFailure;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
@@ -21,7 +19,6 @@ import android.media.Image;
 import android.media.ImageReader;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
@@ -35,9 +32,9 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.a7invensun.verifydemo.R;
-import com.example.a7invensun.verifydemo.cameraDemo.util.AutoFitTextureView;
 import com.example.a7invensun.verifydemo.cameraDemo.util.FileUtil;
 
 import java.io.File;
@@ -83,6 +80,7 @@ public class Camera2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera2);
         ButterKnife.bind(this);
+
     }
 
     @Override
@@ -126,19 +124,19 @@ public class Camera2Activity extends AppCompatActivity {
         }
     }
 
-
     private void setupImageReader() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Log.e(TAG, "setupImageReader: 111111111");
-            mImageReader = ImageReader.newInstance(mCaptureSize.getWidth(), mCaptureSize.getHeight(), ImageFormat.JPEG, 2);
-            mImageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
-                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                @Override
-                public void onImageAvailable(ImageReader reader) {
-                    Log.e(TAG, "setupImageReader: 22222222222");
-                    mCameraHandler.post(new imageSaver(reader.acquireNextImage()));
-                }
-            }, mCameraHandler);
+
+//            mImageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
+//                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+//                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//                @Override
+//                public void onImageAvailable(ImageReader reader) {
+//
+////                    mCameraHandler.post(new imageSaver(reader.acquireNextImage()));
+//                }
+//            }, mCameraHandler);
         }
     }
 
@@ -210,40 +208,28 @@ public class Camera2Activity extends AppCompatActivity {
         try {
             //创建CaptureRequestBuilder，TEMPLATE_PREVIEW == 创建一个适合于相机预览窗口的请求
             mCaptureRequestBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
+            mImageReader = ImageReader.newInstance(mCaptureSize.getWidth(), mCaptureSize.getHeight(), ImageFormat.JPEG, 2);
+
+            mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, mCameraHandler);
             //设置Surface作为预览数据的显示界面
             mCaptureRequestBuilder.addTarget(mSurface);
-            //创建相机捕获会话，第一个参数是捕获数据的输出Surface列表，第二个参数是CameraCaptureSession的状态回调接口，当它创建好后会回调onConfigured方法，第三个参数用来确定Callback在哪个线程执行，为null的话就在当前线程执行
+            //添加后ImageReader.OnImageAvailableListener 开始响应,
+            mCaptureRequestBuilder.addTarget(mImageReader.getSurface());
+            //创建相机捕获会话，第一个参数是捕获数据的输出Surface列表-----获取实时帧时使用 添加mImageReader.getSurface() 显示图像,同时能够保存至文件夹(与mCaptureRequestBuilder.addTarget(mImageReader.getSurface()); 共用)，
+            // 第二个参数是CameraCaptureSession的状态回调接口，当它创建好后会回调onConfigured方法，
+            // 第三个参数用来确定Callback在哪个线程执行，为null的话就在当前线程执行
             mCameraDevice.createCaptureSession(Arrays.asList(mSurface, mImageReader.getSurface()), new CameraCaptureSession.StateCallback() {
                 @Override
                 public void onConfigured(CameraCaptureSession session) {
                     try {
                         //创建捕获请求
-                        mCaptureRequest = mCaptureRequestBuilder.build();
                         mCameraCaptureSession = session;
+                        mCaptureRequest = mCaptureRequestBuilder.build();
                         //设置反复捕获数据的请求，这样预览界面就会一直有数据显示
                         session.setRepeatingRequest(mCaptureRequest, new CameraCaptureSession.CaptureCallback() {
                             @Override
-                            public void onCaptureStarted(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, long timestamp, long frameNumber) {
-                                super.onCaptureStarted(session, request, timestamp, frameNumber);
-                                Log.e(TAG, "onCaptureStarted: ");
-                            }
-
-                            @Override
-                            public void onCaptureProgressed(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull CaptureResult partialResult) {
-                                super.onCaptureProgressed(session, request, partialResult);
-                                Log.e(TAG, "onCaptureProgressed: ");
-                            }
-
-                            @Override
                             public void onCaptureCompleted(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull TotalCaptureResult result) {
                                 super.onCaptureCompleted(session, request, result);
-                                Log.e(TAG, "onCaptureCompleted: ");
-                            }
-
-                            @Override
-                            public void onCaptureFailed(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull CaptureFailure failure) {
-                                super.onCaptureFailed(session, request, failure);
-                                Log.e(TAG, "onCaptureFailed: ");
                             }
                         }, mCameraHandler);
                     } catch (CameraAccessException e) {
@@ -261,6 +247,24 @@ public class Camera2Activity extends AppCompatActivity {
         }
     }
 
+    private ImageReader.OnImageAvailableListener mOnImageAvailableListener
+            = new ImageReader.OnImageAvailableListener() {
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        public void onImageAvailable(final ImageReader reader) {
+            Image image = null;
+            try {
+                image = reader.acquireLatestImage();
+                if (image==null){
+                    return;
+                }
+               imageSaver(image);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.photograph_button)
     public void photographClick() {
@@ -272,7 +276,7 @@ public class Camera2Activity extends AppCompatActivity {
     private void lockFocus() {
         try {
             // 对焦
-            mCaptureRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START);
+//            mCaptureRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START);
             mCameraCaptureSession.capture(mCaptureRequestBuilder.build(), mCaptureCallback, mCameraHandler);
         } catch (CameraAccessException e) {
             e.printStackTrace();
@@ -304,16 +308,13 @@ public class Camera2Activity extends AppCompatActivity {
         try {
             final CaptureRequest.Builder mCaptureBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
 
+            int rotation = getWindowManager().getDefaultDisplay().getRotation();
             mCaptureBuilder.addTarget(mImageReader.getSurface());
-            // 获取手机方向
-            int rotation = Camera2Activity.this.getWindowManager().getDefaultDisplay().getRotation();
-            Log.e(TAG, "takePicture: "+rotation );
-            // 根据设备方向计算设置照片的方向
             mCaptureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATION.get(rotation));
-
             CameraCaptureSession.CaptureCallback captureCallback = new CameraCaptureSession.CaptureCallback() {
                 @Override
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull TotalCaptureResult result) {
+                    Toast.makeText(getApplicationContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
                     unLockFocus();
                 }
             };
@@ -327,46 +328,66 @@ public class Camera2Activity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void unLockFocus() {
         try {
-            mCaptureRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_TRIGGER_START);
+//            mCaptureRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_TRIGGER_START);
             mCameraCaptureSession.setRepeatingRequest(mCaptureRequest, null, mCameraHandler);
+            startPreview();
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
     }
 
-    private class imageSaver implements Runnable {
-        private Image mImage;
-
-        public imageSaver(Image image) {
-            mImage = image;
-        }
-
-        File mImageFile;
-
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-        @Override
-        public void run() {
-            ByteBuffer buffer = mImage.getPlanes()[0].getBuffer();
-            byte[] data = new byte[buffer.remaining()];
-            buffer.get(data);
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            FileOutputStream fos = null;
-            try {
-                mImageFile = FileUtil.createFile(getApplicationContext(), false, "CameraV2/", "IMG_" + timeStamp + ".jpg", 1074000000);
-                fos = new FileOutputStream(mImageFile);
-                fos.write(data, 0, data.length);
-            } catch (FileUtil.NoExternalStoragePermissionException | FileUtil.NoExternalStorageMountedException | FileUtil.DirHasNoFreeSpaceException | IOException e) {
-
-                Log.e(TAG, "setupImageReader: " + e.getMessage() );
-            } finally {
-                if (fos != null) {
-                    try {
-                        fos.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+    public void imageSaver(final Image image){
+        new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void run() {
+                File mImageFile;
+                ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+                byte[] data = new byte[buffer.remaining()];
+                buffer.get(data);
+                FileOutputStream fos = null;
+                try {
+                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                    mImageFile = FileUtil.createFile(getApplicationContext(), false, "CameraV2/", "IMG_" + timeStamp + ".jpg", 1074000000);
+                    fos = new FileOutputStream(mImageFile);
+                    fos.write(data, 0, data.length);
+                } catch (FileUtil.NoExternalStoragePermissionException | FileUtil.NoExternalStorageMountedException | FileUtil.DirHasNoFreeSpaceException | IOException e) {
+                    Log.e(TAG, "setupImageReader: " + e.getMessage() );
+                } finally {
+                    if (fos != null) {
+                        try {
+                            fos.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }if (image !=null){
+                        image.close();
                     }
+
                 }
             }
+        }).start();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mCameraCaptureSession != null) {
+            mCameraCaptureSession.close();
+            mCameraCaptureSession = null;
+        }
+
+        if (mCameraDevice != null) {
+            mCameraDevice.close();
+            mCameraDevice = null;
+        }
+
+        if (mImageReader != null) {
+            mImageReader.close();
+            mImageReader = null;
         }
     }
+
 }
