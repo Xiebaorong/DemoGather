@@ -4,24 +4,16 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ImageFormat;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
-import android.hardware.camera2.params.Face;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
@@ -38,6 +30,7 @@ import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
+import android.view.SurfaceHolder;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +38,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.a7invensun.verifydemo.R;
+import com.example.a7invensun.verifydemo.cameraDemo.util.ConvertUtil;
 import com.example.a7invensun.verifydemo.cameraDemo.util.FaceView;
 import com.example.a7invensun.verifydemo.cameraDemo.util.FileUtil;
 
@@ -53,12 +47,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,14 +78,14 @@ public class Camera2Activity extends AppCompatActivity {
     private Handler mCameraHandler;
     private CameraManager manager;
     private ImageReader mImageReader;//允许应用程序直接访问呈现表面的图像数据
-    private Size mCaptureSize,cPixelSize;
+    private Size mCaptureSize, cPixelSize;
     private CaptureRequest mCaptureRequest;
     private CameraCaptureSession mCameraCaptureSession;
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
                     faceView.setVisibility(View.VISIBLE);
                     break;
@@ -103,12 +95,14 @@ public class Camera2Activity extends AppCompatActivity {
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera2);
         ButterKnife.bind(this);
         faceView.invalidate();
+        requestWritePermission();
 
     }
 
@@ -139,29 +133,25 @@ public class Camera2Activity extends AppCompatActivity {
                 //获取StreamConfigurationMap，它是管理摄像头支持的所有输出格式和尺寸
                 StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
                 //获取人脸检测参数
-                int[] FD = characteristics.get(CameraCharacteristics.STATISTICS_INFO_AVAILABLE_FACE_DETECT_MODES);
-                int maxFD = characteristics.get(CameraCharacteristics.STATISTICS_INFO_MAX_FACE_COUNT);
-
-                if (FD.length > 0) {
-                    List<Integer> fdList = new ArrayList<>();
-                    for (int FaceD : FD) {
-                        fdList.add(FaceD);
-                        Log.e(TAG, "initCamera: FD type:" + FaceD);
-                    }
-                    Log.e(TAG, "initCamera: FD count" + maxFD);
-
-                    if (maxFD > 0) {
-
-                    }
-                }
+//                int[] FD = characteristics.get(CameraCharacteristics.STATISTICS_INFO_AVAILABLE_FACE_DETECT_MODES);
+//                int maxFD = characteristics.get(CameraCharacteristics.STATISTICS_INFO_MAX_FACE_COUNT);
+//
+//                if (FD.length > 0) {
+//                    List<Integer> fdList = new ArrayList<>();
+//                    for (int FaceD : FD) {
+//                        fdList.add(FaceD);
+//                        Log.e(TAG, "initCamera: FD type:" + FaceD);
+//                    }
+//                    Log.e(TAG, "initCamera: FD count" + maxFD);
+//
+//                    if (maxFD > 0) {
+//
+//                    }
+//                }
 
                 //获取相机支持的最大拍照尺寸
-                mCaptureSize = Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)), new Comparator<Size>() {
-                    @Override
-                    public int compare(Size lhs, Size rhs) {
-                        return Long.signum(lhs.getWidth() * lhs.getHeight() - rhs.getHeight() * rhs.getWidth());
-                    }
-                });
+
+                mCaptureSize = map.getOutputSizes(SurfaceHolder.class)[0];
                 cPixelSize = characteristics.get(CameraCharacteristics.SENSOR_INFO_PIXEL_ARRAY_SIZE);//获取成像尺寸
 //                setupImageReader();
                 mCameraId = cameraId;
@@ -174,8 +164,6 @@ public class Camera2Activity extends AppCompatActivity {
 
     private void setupImageReader() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.e(TAG, "setupImageReader: 111111111");
-
 //            mImageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
 //                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 //                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -219,6 +207,7 @@ public class Camera2Activity extends AppCompatActivity {
             manager.openCamera(mCameraId, new CameraDevice.StateCallback() {
                 @Override
                 public void onOpened(@NonNull CameraDevice camera) {
+                    Log.e(TAG, "onOpened: 打开相机");
                     mCameraDevice = camera;
                 }
 
@@ -245,7 +234,7 @@ public class Camera2Activity extends AppCompatActivity {
         startPreview();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     private void startPreview() {
         SurfaceTexture mSurfaceTexture = myTextureView.getSurfaceTexture();
         //设置TextureView的缓冲区大小
@@ -255,18 +244,21 @@ public class Camera2Activity extends AppCompatActivity {
         try {
             //创建CaptureRequestBuilder，TEMPLATE_PREVIEW == 创建一个适合于相机预览窗口的请求
             mCaptureRequestBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
-            mImageReader = ImageReader.newInstance(mCaptureSize.getWidth(), mCaptureSize.getHeight(), ImageFormat.JPEG, 2);
+            //YUV_420_888 格式保存在CSDN个人博客中
+            mImageReader = ImageReader.newInstance(mCaptureSize.getWidth(), mCaptureSize.getHeight(), ImageFormat.YUV_420_888, 2);
 
             mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, mCameraHandler);
             //设置Surface作为预览数据的显示界面
             mCaptureRequestBuilder.addTarget(mSurface);
             //添加后ImageReader.OnImageAvailableListener 开始响应,
             mCaptureRequestBuilder.addTarget(mImageReader.getSurface());
+            // 人脸识别
+//            mCaptureRequestBuilder.set(CaptureRequest.STATISTICS_FACE_DETECT_MODE,
+//                    CameraMetadata.STATISTICS_FACE_DETECT_MODE_FULL);
             //创建相机捕获会话，第一个参数是捕获数据的输出Surface列表-----获取实时帧时使用 添加mImageReader.getSurface() 显示图像,同时能够保存至文件夹(与mCaptureRequestBuilder.addTarget(mImageReader.getSurface()); 共用)，
             // 第二个参数是CameraCaptureSession的状态回调接口，当它创建好后会回调onConfigured方法，
             // 第三个参数用来确定Callback在哪个线程执行，为null的话就在当前线程执行
-            mCaptureRequestBuilder.set(CaptureRequest.STATISTICS_FACE_DETECT_MODE,
-                    CameraMetadata.STATISTICS_FACE_DETECT_MODE_FULL);
+//            mCameraDevice.createCaptureSession(Arrays.asList(mSurface), new CameraCaptureSession.StateCallback() {
             mCameraDevice.createCaptureSession(Arrays.asList(mSurface, mImageReader.getSurface()), new CameraCaptureSession.StateCallback() {
                 @Override
                 public void onConfigured(CameraCaptureSession session) {
@@ -276,21 +268,19 @@ public class Camera2Activity extends AppCompatActivity {
                         mCaptureRequest = mCaptureRequestBuilder.build();
                         //设置反复捕获数据的请求，这样预览界面就会一直有数据显示
                         session.setRepeatingRequest(mCaptureRequest, new CameraCaptureSession.CaptureCallback() {
-                            private void process(CaptureResult request) {
-                                Log.e(TAG, "processzzzzzzzzzz: xxxxxxxxxxxxxxxxx" );
-                                Face[] faces = request.get(CaptureResult.STATISTICS_FACES);
-                                if (faces.length > 0) {
-                                    handler.sendEmptyMessage(1);
-                                    Log.e(TAG, "process: face detected " + faces.length);
-                                    Rect bounds = faces[0].getBounds();
-                                    float y = cPixelSize.getHeight() / 2 - bounds.top;
-                                    Log.e(TAG, "process:--->height: " + mCaptureSize.getWidth() + "--- top: " + y + "---left: " + bounds.left + "---right: " + bounds.right);
-                                    faceView.setFaceView(bounds,cPixelSize,faces);
-                                    faceView.invalidate();
-                                }else {
-                                    Log.e(TAG, "processzzzzzzzzzz: zzzzzzzzzzzzzzzzzzzzzzzzzz" );
-                                    handler.sendEmptyMessage(2);
-                                }
+                            private void FaceProcess(CaptureResult request) {
+//                                Face[] faces = request.get(CaptureResult.STATISTICS_FACES);
+//                                if (faces.length > 0) {
+//                                    handler.sendEmptyMessage(1);
+//                                    Log.e(TAG, "process: face detected " + faces.length);
+//                                    Rect bounds = faces[0].getBounds();
+//                                    float y = cPixelSize.getHeight() / 2 - bounds.top;
+//                                    Log.e(TAG, "process:--->height: " + mCaptureSize.getWidth() + "--- top: " + y + "---left: " + bounds.left + "---right: " + bounds.right);
+//                                    faceView.setFaceView(bounds,cPixelSize,faces);
+//                                    faceView.invalidate();
+//                                }else {
+//                                    handler.sendEmptyMessage(2);
+//                                }
 
 
                             }
@@ -300,7 +290,8 @@ public class Camera2Activity extends AppCompatActivity {
                             public void onCaptureProgressed(@NonNull CameraCaptureSession
                                                                     session, @NonNull CaptureRequest request, @NonNull CaptureResult
                                                                     partialResult) {
-                                process(partialResult);
+
+                                FaceProcess(partialResult);
                                 Log.e(TAG, "onCaptureProgressed: 1111111");
                             }
 
@@ -308,7 +299,7 @@ public class Camera2Activity extends AppCompatActivity {
                             public void onCaptureCompleted(@NonNull CameraCaptureSession
                                                                    session, @NonNull CaptureRequest
                                                                    request, @NonNull TotalCaptureResult result) {
-                                process(result);
+                                FaceProcess(result);
                                 Log.e(TAG, "onCaptureProgressed: 2222222");
                             }
                         }, mCameraHandler);
@@ -336,25 +327,36 @@ public class Camera2Activity extends AppCompatActivity {
 
     private ImageReader.OnImageAvailableListener mOnImageAvailableListener
             = new ImageReader.OnImageAvailableListener() {
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         public void onImageAvailable(final ImageReader reader) {
             Image image = null;
+            Log.e(TAG, "onImageAvailable: ---------------------------");
             try {
                 image = reader.acquireLatestImage();
                 if (image == null) {
                     return;
                 }
 //                imageSaver(image);
+                Log.e(TAG, "onImageAvailable: 2222222222222");
+                ConvertUtil.YUV420ToRGB(getApplicationContext(),image);
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
                 if (image != null) {
                     image.close();
                 }
+            } finally {
             }
         }
     };
+    private static final int RESULT_WRITE_PERMISSION = 2;
+    /**
+     * 可读可写权限判断
+     */
+    private void requestWritePermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, RESULT_WRITE_PERMISSION);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.photograph_button)

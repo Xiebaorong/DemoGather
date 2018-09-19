@@ -3,6 +3,7 @@ package com.example.a7invensun.verifydemo.cameraDemo.util;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.media.Image;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -22,6 +23,8 @@ import java.io.InputStream;
 public class FileUtil {
 
     private static final String TAG = FileUtil.class.getSimpleName();
+
+
 
     /**
      * 无外部存储卡访问权限
@@ -219,6 +222,9 @@ public class FileUtil {
         }
     }
 
+    public static void mYUVToRGB(Image image) {
+
+    }
 
 
 }
