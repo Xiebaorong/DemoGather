@@ -24,6 +24,7 @@ import com.example.a7invensun.verifydemo.language.LanguageActivity;
 import com.example.a7invensun.verifydemo.lockscreen.StartLockServiceActivity;
 import com.example.a7invensun.verifydemo.logdemo.LogActivity;
 import com.example.a7invensun.verifydemo.multipleSet.MultipleSetActivity;
+import com.example.a7invensun.verifydemo.mvpDemo.view.LoginActivity;
 import com.example.a7invensun.verifydemo.observerPattern.StartActivity;
 import com.example.a7invensun.verifydemo.retrofitDemo.RetrofitActivity;
 import com.example.a7invensun.verifydemo.slide.SlideActivity;
@@ -33,8 +34,6 @@ import com.example.a7invensun.verifydemo.videopaly.VideoPalyActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -61,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<ListData> initList() {
         List<ListData> list = new ArrayList<>();
+        list.add(new ListData(this, "MVP模式", new Intent(this, LoginActivity.class)));
         list.add(new ListData(this, "Camera2", new Intent(this, Camera2Activity.class)));
         list.add(new ListData(this, "设置界面UI封装", new Intent(this, MultipleSetActivity.class)));
         list.add(new ListData(this, "观察者模式", new Intent(this, StartActivity.class)));

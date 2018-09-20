@@ -42,16 +42,16 @@ public class OkHttpManager {
     }
 
     public OkHttpManager() {
-        File cacheFile = new File(BaseApp.getInstance().getExternalCacheDir(), "DemoCache");
-        Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
+//        File cacheFile = new File(BaseApp.getInstance().getExternalCacheDir(), "DemoCache");
+//        Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
 
         mOkHttpClient = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)//连接失败后是否重新连接
                 .connectTimeout(10, TimeUnit.SECONDS)//超时时间15S
-                 .addInterceptor(new NetInterceptorUtil())
+//                 .addInterceptor(new NetInterceptorUtil())
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
-                .cache(cache)//缓存器
+//                .cache(cache)//缓存器
                 .build();
         //.connectTimeout(10, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS)
         mGson = new Gson();
@@ -78,23 +78,6 @@ public class OkHttpManager {
 
             }
         });
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                OkHttpClient okHttpClient = new OkHttpClient.Builder().addNetworkInterceptor(new LogInterceptor()).build();
-//                Request request = new Request.Builder()
-//                        .url("http://www.taobao.com")
-//                        .get()
-//                        .build();
-//                Call call = okHttpClient.newCall(request);
-//                try {
-//                    call.execute();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-
     }
 
     /**
@@ -209,7 +192,7 @@ public class OkHttpManager {
     }
 
 
-    enum HttpMethodType {
+    public enum HttpMethodType {
         GET, POST
     }
 }
