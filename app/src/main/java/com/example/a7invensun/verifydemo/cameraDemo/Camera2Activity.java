@@ -253,8 +253,8 @@ public class Camera2Activity extends AppCompatActivity {
             //添加后ImageReader.OnImageAvailableListener 开始响应,
             mCaptureRequestBuilder.addTarget(mImageReader.getSurface());
             // 人脸识别
-//            mCaptureRequestBuilder.set(CaptureRequest.STATISTICS_FACE_DETECT_MODE,
-//                    CameraMetadata.STATISTICS_FACE_DETECT_MODE_FULL);
+////            mCaptureRequestBuilder.set(CaptureRequest.STATISTICS_FACE_DETECT_MODE,
+////                    CameraMetadata.STATISTICS_FACE_DETECT_MODE_FULL);
             //创建相机捕获会话，第一个参数是捕获数据的输出Surface列表-----获取实时帧时使用 添加mImageReader.getSurface() 显示图像,同时能够保存至文件夹(与mCaptureRequestBuilder.addTarget(mImageReader.getSurface()); 共用)，
             // 第二个参数是CameraCaptureSession的状态回调接口，当它创建好后会回调onConfigured方法，
             // 第三个参数用来确定Callback在哪个线程执行，为null的话就在当前线程执行
@@ -336,9 +336,9 @@ public class Camera2Activity extends AppCompatActivity {
                 if (image == null) {
                     return;
                 }
-//                imageSaver(image);
+//                imageSaver(image);F
                 Log.e(TAG, "onImageAvailable: 2222222222222");
-                ConvertUtil.YUV420ToRGB(getApplicationContext(),image);
+                ConvertUtil.YUV420ToRGB(getApplicationContext(), image);
             } catch (Exception e) {
                 e.printStackTrace();
                 if (image != null) {
@@ -349,6 +349,7 @@ public class Camera2Activity extends AppCompatActivity {
         }
     };
     private static final int RESULT_WRITE_PERMISSION = 2;
+
     /**
      * 可读可写权限判断
      */

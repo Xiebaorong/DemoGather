@@ -5,5 +5,9 @@
     <string name="chinese">中文</string>
     <string name="english">英文</string>
     <string name="Japanese">日文</string>
+    <string name="picture">Picture</string>
+    <string name="description_info">Info</string>
+    <string name="request_permission">This sample needs camera permission.</string>
+    <string name="camera_error">This device doesn\'t support Camera2 API.</string>
 </resources>
 

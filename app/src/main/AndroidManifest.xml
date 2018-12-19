@@ -69,7 +69,11 @@
         <activity android:name=".cameraDemo.Camera2Activity" />
         <activity android:name=".listautomaticsliding.ListAutomaticSlidingActivity" />
         <activity android:name=".mvpDemo.view.LoginActivity" />
-        <activity android:name=".mvpDemo.view.RegisterActivity"></activity>
+        <activity android:name=".mvpDemo.view.RegisterActivity" />
+        <activity android:name=".cameraDemo.CameraActivity" />
+        <activity android:name=".RxJava2XAndRetrofit2X_Demo.Rx_ReActivity" />
+        <activity android:name=".RxJavaDemo.RxJavaActivity" />
+        <activity android:name="com.example.zhongdun.verifydemo.RxJava_RtrofitActivity"></activity>
     </application>
 
 </manifest>

@@ -5,36 +5,75 @@ package com.example.a7invensun.verifydemo.mvpDemo.model;
  */
 
 public class User {
-    int code;
-    String name;
-    String pass;
 
-    public int getCode() {
-        return code;
+
+    /**
+     * status : 0
+     * message : 成功
+     * tall : {"name":"李四1","age":24,"tall":166}
+     */
+
+    private int status;
+    private String message;
+    private TallBean tall;
+
+    public int getStatus() {
+        return status;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getName() {
-        return name;
+    public String getMessage() {
+        return message;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getPass() {
-        return pass;
+    public TallBean getTall() {
+        return tall;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setTall(TallBean tall) {
+        this.tall = tall;
     }
 
-    public User(String name, String pass) {
-        this.name = name;
-        this.pass = pass;
+    public static class TallBean {
+        /**
+         * name : 李四1
+         * age : 24
+         * tall : 166
+         */
+
+        private String name;
+        private int age;
+        private int tall;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public int getTall() {
+            return tall;
+        }
+
+        public void setTall(int tall) {
+            this.tall = tall;
+        }
     }
 }
