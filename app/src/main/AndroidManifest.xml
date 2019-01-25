@@ -73,7 +73,7 @@
         <activity android:name=".cameraDemo.CameraActivity" />
         <activity android:name=".RxJava2XAndRetrofit2X_Demo.Rx_ReActivity" />
         <activity android:name=".RxJavaDemo.RxJavaActivity" />
-        <activity android:name="com.example.zhongdun.verifydemo.RxJava_RtrofitActivity"></activity>
+        <activity android:name="com.example.zhongdun.verifydemo.rx_rt.RxJava_RtrofitActivity"></activity>
     </application>
 
 </manifest>
