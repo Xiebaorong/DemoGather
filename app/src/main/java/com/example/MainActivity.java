@@ -1,4 +1,4 @@
-package com.example.a7invensun.verifydemo;
+package com.example;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,13 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.a7invensun.verifydemo.R;
 import com.example.a7invensun.verifydemo.RxJava2XAndRetrofit2X_Demo.Rx_ReActivity;
 import com.example.a7invensun.verifydemo.RxJavaDemo.RxJavaActivity;
 import com.example.a7invensun.verifydemo.adapter.MyActivityAdapter;
 import com.example.a7invensun.verifydemo.animation.AnimationActivity;
 import com.example.a7invensun.verifydemo.bottonClickDiffusion.DiffusionActivity;
 import com.example.a7invensun.verifydemo.butterKnifeDemo.ButterKnifeActivity;
-import com.example.a7invensun.verifydemo.cameraDemo.Camera2Activity;
 import com.example.a7invensun.verifydemo.cameraDemo.CameraActivity;
 import com.example.a7invensun.verifydemo.dialog.DialogActivity;
 import com.example.a7invensun.verifydemo.greendao.GreenDaoActivity;
@@ -34,6 +34,8 @@ import com.example.a7invensun.verifydemo.slide.SlideActivity;
 import com.example.a7invensun.verifydemo.statusBar.StatusBarShowActivity;
 import com.example.a7invensun.verifydemo.util.ListData;
 import com.example.a7invensun.verifydemo.videopaly.VideoPalyActivity;
+import com.example.zhongdun.verifydemo.customdialog.ZDDialogActivity;
+import com.example.zhongdun.verifydemo.menu.MenuActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
     private List<ListData> initList() {
         List<ListData> list = new ArrayList<>();
+        list.add(new ListData(this, "菜单 ", new Intent(this, MenuActivity.class)));
+        list.add(new ListData(this, "自定义通知框 ", new Intent(this, ZDDialogActivity.class)));
         list.add(new ListData(this, "RxJava2.0 ", new Intent(this, RxJavaActivity.class)));
         list.add(new ListData(this, "RxJava2.0+Retrofit2.0", new Intent(this, Rx_ReActivity.class)));
         list.add(new ListData(this, "MVP模式", new Intent(this, LoginActivity.class)));
@@ -73,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "Log管理(无样式，log输出)", new Intent(this, LogActivity.class)));
         list.add(new ListData(this, "水平滑动", new Intent(this, HorizontalSlipActivity.class)));
         list.add(new ListData(this, "GreenDao框架Demo", new Intent(this, GreenDaoActivity.class)));
-        list.add(new ListData(this, "自定义弹框", new Intent(this, DialogActivity.class)));
         list.add(new ListData(this, "状态栏样式、TextView滑动显示内容", new Intent(this, StatusBarShowActivity.class)));
         list.add(new ListData(this, "按钮点击水波反馈", new Intent(this, DiffusionActivity.class)));
         list.add(new ListData(this, "滑动", new Intent(this, SlideActivity.class)));
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new ListData(this, "动画", new Intent(this, AnimationActivity.class)));
         list.add(new ListData(this, "中英文切换", new Intent(this, LanguageActivity.class)));
         list.add(new ListData(this, "ButterKnife，Activity中有find 与 view.find 两种情况", new Intent(this, ButterKnifeActivity.class)));
-        list.add(new ListData(this, "OkHttp", new Intent(this, HttpWeatherActivity.class)));
+//        list.add(new ListData(this, "OkHttp", new Intent(this, HttpWeatherActivity.class)));
         list.add(new ListData(this, "Retrofit", new Intent(this, RetrofitActivity.class)));
 
         Log.e(TAG, "initList: "+list.size());

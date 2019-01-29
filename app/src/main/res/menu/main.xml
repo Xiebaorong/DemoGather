@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_about"
+        android:title="相关"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/menu_enter"
+        android:orderInCategory="100"
+        android:title="搜索"
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
+
+    <item
+        android:id="@+id/menu_setting"
+        android:orderInCategory="100"
+        android:title="设置"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_out"
+        android:orderInCategory="100"
+        android:title="退出"
+        app:showAsAction="never"/>
+</menu>
+
+<!--
+showAsAction主要是针对这个菜单的显示起作用的，它有三个可选项
+always：总是显示在界面上
+never：不显示在界面上，只让出现在右边的三个点中
+ifRoom：如果有位置才显示，不然就出现在右边的三个点中
+android:orderInCategory="100" 设置优先级 值越大优先级越小
+-->

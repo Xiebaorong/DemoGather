@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -73,7 +73,13 @@
         <activity android:name=".cameraDemo.CameraActivity" />
         <activity android:name=".RxJava2XAndRetrofit2X_Demo.Rx_ReActivity" />
         <activity android:name=".RxJavaDemo.RxJavaActivity" />
-        <activity android:name="com.example.zhongdun.verifydemo.rx_rt.RxJava_RtrofitActivity"></activity>
+        <activity android:name="com.example.zhongdun.verifydemo.rx_rt.RxJava_RtrofitActivity" />
+        <activity
+            android:name="com.example.zhongdun.verifydemo.customdialog.ZDDialogActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name="com.example.zhongdun.verifydemo.menu.MenuActivity"
+            android:theme="@style/MenuActivityTheme"
+            ></activity>
     </application>
 
 </manifest>

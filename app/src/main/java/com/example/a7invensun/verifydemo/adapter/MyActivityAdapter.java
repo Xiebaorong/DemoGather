@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.a7invensun.verifydemo.MainActivity;
+import com.example.MainActivity;
 import com.example.a7invensun.verifydemo.util.ListData;
 
 import java.util.List;

@@ -41,7 +41,7 @@ dependencies {
     implementation 'org.greenrobot:greendao-generator:3.2.2'
     //数据库加密,同时解决 Caused by: java.lang.ClassNotFoundException: Didn't find class "net.sqlcipher.database.SQLiteOpenHelper" on path
     implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
-    compile 'com.linsea:universalvideoview:1.1.0@aar'
+    implementation 'com.linsea:universalvideoview:1.1.0@aar'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.google.code.gson:gson:2.8.4'
     //Retrofit 需加okhttp---- 由于Retrofit是基于OkHttp，所以还需要添加OkHttp库依赖 ,  设置数据解析器时还需添加Gson
@@ -50,7 +50,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
     implementation 'com.android.support:recyclerview-v7:27.1.1'
 }
