@@ -3,7 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_about"
+        android:orderInCategory="102"
         android:title="相关"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/menu_test"
+        android:orderInCategory="101"
+        android:title="实验"
         app:showAsAction="always"
         />
     <item
