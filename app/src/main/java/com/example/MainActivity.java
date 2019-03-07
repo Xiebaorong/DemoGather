@@ -34,8 +34,13 @@ import com.example.a7invensun.verifydemo.slide.SlideActivity;
 import com.example.a7invensun.verifydemo.statusBar.StatusBarShowActivity;
 import com.example.a7invensun.verifydemo.util.ListData;
 import com.example.a7invensun.verifydemo.videopaly.VideoPalyActivity;
+import com.example.zhongdun.verifydemo.activemq.MQActivity;
+import com.example.zhongdun.verifydemo.badge.BadgeActivity;
+import com.example.zhongdun.verifydemo.colormatrix.ColorMatrixActivity;
 import com.example.zhongdun.verifydemo.customdialog.ZDDialogActivity;
+import com.example.zhongdun.verifydemo.fresco.FrescoActivity;
 import com.example.zhongdun.verifydemo.menu.MenuActivity;
+import com.example.zhongdun.verifydemo.threadpooldemo.ThreadPoolActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
 
     private List<ListData> initList() {
         List<ListData> list = new ArrayList<>();
+        list.add(new ListData(this, "图像增强", new Intent(this, ColorMatrixActivity.class)));
+        list.add(new ListData(this, "Fresco图片加载", new Intent(this, FrescoActivity.class)));
+        list.add(new ListData(this, "MQ ", new Intent(this, MQActivity.class)));
+        list.add(new ListData(this, "线程池 ", new Intent(this, ThreadPoolActivity.class)));
+        list.add(new ListData(this, "未读信息显示红点 ", new Intent(this, BadgeActivity.class)));
         list.add(new ListData(this, "菜单 ", new Intent(this, MenuActivity.class)));
         list.add(new ListData(this, "自定义通知框 ", new Intent(this, ZDDialogActivity.class)));
         list.add(new ListData(this, "RxJava2.0 ", new Intent(this, RxJavaActivity.class)));

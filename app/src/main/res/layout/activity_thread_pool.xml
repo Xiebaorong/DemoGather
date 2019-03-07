@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="创建一个固定线程数量的线程池"
+        android:onClick="onClick_newFixedThreadPool"
+        />
+
+   <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="创建一个只有一个线程的线程池"
+        android:onClick="onClick_newSingleThreadExecutor"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="创建根据实际情况调整线程池中线程的数量的线程池"
+        android:onClick="onClick_newCachedThreadPool"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick_newScheduledThreadPool"
+        android:text="创建定时或者周期性执行任务的线程池" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick_newSingleThreadScheduledExecutor"
+        android:text="创建定时或者周期性执行任务的线程池,线程数为1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick_newCustomThreadPool"
+        android:text="自定义线程池ThreadPoolExecutor " />
+
+</LinearLayout>

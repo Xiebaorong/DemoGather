@@ -3,10 +3,9 @@ package com.example.a7invensun.verifydemo.RxJava2XAndRetrofit2X_Demo.http;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.a7invensun.verifydemo.BaseApp;
 import com.example.a7invensun.verifydemo.RxJava2XAndRetrofit2X_Demo.apiservice.ApiService;
 import com.example.a7invensun.verifydemo.httpWeather.util.HttpUtils;
-import com.example.a7invensun.verifydemo.mvpDemo.view.MyApplication;
+import com.example.MyApplication;
 
 import java.io.File;
 import java.io.IOException;

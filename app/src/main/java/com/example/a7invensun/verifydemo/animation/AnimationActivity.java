@@ -54,7 +54,7 @@ public class AnimationActivity extends AppCompatActivity {
      */
     private AnimatorSet rotationAnimation() {
         AnimatorSet animatorSet = new AnimatorSet();
-        ObjectAnimator resetX = ObjectAnimator.ofFloat(imageView, "rotation", 0, 180, 0);
+        ObjectAnimator resetX = ObjectAnimator.ofFloat(imageView, "rotation", 180, 0, 0);
         animatorSet.play(resetX);
         animatorSet.setDuration(500);
         return animatorSet;

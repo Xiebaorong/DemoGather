@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.a7invensun.verifydemo">
-
     <!-- 锁屏权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- 数据库存储权限 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 数据库存储权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 判断联网状态 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 判断联网状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name=".mvpDemo.view.MyApplication"
+        android:name="com.example.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,6 +22,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="com.example.zhongdun.verifydemo.alarmclock.AlarmClockActivity"></activity>
+        <activity android:name="com.example.zhongdun.verifydemo.colormatrix.ColorMatrixActivity" />
+        <activity android:name="com.example.zhongdun.verifydemo.fresco.FrescoActivity" />
+        <activity android:name="com.example.zhongdun.verifydemo.activemq.MQActivity" />
         <activity
             android:name="com.example.MainActivity"
             android:launchMode="singleTask">
@@ -77,9 +78,24 @@
         <activity
             android:name="com.example.zhongdun.verifydemo.customdialog.ZDDialogActivity"
             android:screenOrientation="landscape" />
-        <activity android:name="com.example.zhongdun.verifydemo.menu.MenuActivity"
-            android:theme="@style/MenuActivityTheme"
-            ></activity>
+        <activity
+            android:name="com.example.zhongdun.verifydemo.menu.MenuActivity"
+            android:theme="@style/MenuActivityTheme" />
+        <activity android:name="com.example.zhongdun.verifydemo.badge.BadgeActivity" />
+        <activity android:name="com.example.zhongdun.verifydemo.threadpooldemo.ThreadPoolActivity" />
+
+        <receiver
+            android:name="com.example.zhongdun.verifydemo.activemq.MyReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.example.zhongdun.verifydemo.activemq.MqttService"
+            android:exported="false" />
     </application>
 
 </manifest>

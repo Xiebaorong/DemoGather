@@ -23,7 +23,7 @@ public class NetWorkConnectedActivity extends AppCompatActivity {
 
     public void newButton(View view) {
         boolean networkConnected = isNetworkConnected(mContext);
-        LogUtils.w(networkConnected);
+        LogUtils.e(networkConnected);
     }
 
     public boolean isNetworkConnected(Context context) {
@@ -52,6 +52,6 @@ public class NetWorkConnectedActivity extends AppCompatActivity {
         } else if (type == ConnectivityManager.TYPE_WIFI){
             LogUtils.v("wifi is connected: "+ network.isConnected());
         }
-
+        LogUtils.e(type);
     }
 }

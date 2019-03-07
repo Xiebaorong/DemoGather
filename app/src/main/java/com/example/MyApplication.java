@@ -1,9 +1,10 @@
-package com.example.a7invensun.verifydemo.mvpDemo.view;
+package com.example;
 
 import android.app.Application;
 
 import com.example.a7invensun.verifydemo.mvpDemo.util.OkhttpUtil;
 import com.example.a7invensun.verifydemo.mvpDemo.util.SharedPreferencesUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 
 public class MyApplication extends Application {
@@ -14,7 +15,8 @@ public class MyApplication extends Application {
         super.onCreate();
         instance = this;
         SharedPreferencesUtil.getInstance().initSharedPreferences(instance);
-        OkhttpUtil.getInstance().initOkHttp();
+//        OkhttpUtil.getInstance().initOkHttp();
+        Fresco.initialize(this);
     }
 
     public static MyApplication getInstance() {
