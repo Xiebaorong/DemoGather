@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 数据库存储权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 判断联网状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -22,7 +23,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.zhongdun.verifydemo.alarmclock.AlarmClockActivity"></activity>
+        <activity android:name="com.example.zhongdun.verifydemo.paixu.PaixuActivity"></activity>
+        <activity android:name="com.example.zhongdun.verifydemo.alarmclock.HintActivity" />
+        <activity android:name="com.example.zhongdun.verifydemo.alarmclock.AlarmClockActivity" />
         <activity android:name="com.example.zhongdun.verifydemo.colormatrix.ColorMatrixActivity" />
         <activity android:name="com.example.zhongdun.verifydemo.fresco.FrescoActivity" />
         <activity android:name="com.example.zhongdun.verifydemo.activemq.MQActivity" />

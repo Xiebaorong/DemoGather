@@ -14,6 +14,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.provider.Settings.Secure;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -77,6 +78,8 @@ public class MqttService extends Service implements MqttCallback {
 
     private AlarmManager mAlarmManager; // Alarm manager to perform repeating tasks
     private ConnectivityManager mConnectivityManager; // To check for connectivity changes
+    private String logText;
+    private static TextView mTextView;
 
     /**
      * Start MQTT Client
@@ -112,6 +115,11 @@ public class MqttService extends Service implements MqttCallback {
         Intent i = new Intent(ctx, MqttService.class);
         i.setAction(ACTION_KEEPALIVE);
         ctx.startService(i);
+    }
+
+    public static void setTextView(TextView tvMq) {
+        mTextView = tvMq;
+        mTextView.setText("初始化");
     }
 
     /**
@@ -156,16 +164,19 @@ public class MqttService extends Service implements MqttCallback {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-
         String action = intent.getAction();
-
         Log.i(DEBUG_TAG, "Received action of " + action);
-
+        logText = "Received action of  " + action;
+        mTextView.setText(logText);
         if (action == null) {
             Log.i(DEBUG_TAG, "Starting service with no action\n Probably from a crash");
+            logText = logText + "\n" + "Starting service with no action\n Probably from a crash";
+            mTextView.setText(logText);
         } else {
             if (action.equals(ACTION_START)) {
                 Log.i(DEBUG_TAG, "Received ACTION_START");
+                logText = logText + "\n" + "Received ACTION_START";
+                mTextView.setText(logText);
                 start();
             } else if (action.equals(ACTION_STOP)) {
                 stop();
@@ -188,16 +199,14 @@ public class MqttService extends Service implements MqttCallback {
      */
     private synchronized void start() {
         if (mStarted) {
-            Log.i(DEBUG_TAG, "Attempt to start while already started");
+            Log.i(DEBUG_TAG, "尝试在已经启动时启动");
             return;
         }
 
         if (hasScheduledKeepAlives()) {
             stopKeepAlives();
         }
-
         connect();
-
         registerReceiver(mConnectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
@@ -208,7 +217,9 @@ public class MqttService extends Service implements MqttCallback {
      */
     private synchronized void stop() {
         if (!mStarted) {
-            Log.i(DEBUG_TAG, "Attemtpign to stop connection that isn't running");
+            Log.i(DEBUG_TAG, "尝试停止不运行的连接");
+            logText = logText + "\n" + "尝试停止不运行的连接";
+            mTextView.setText(logText);
             return;
         }
 
@@ -238,16 +249,25 @@ public class MqttService extends Service implements MqttCallback {
     private synchronized void connect() {
         String url = String.format(Locale.US, MQTT_URL_FORMAT, MQTT_BROKER, MQTT_PORT);
         Log.i(DEBUG_TAG, "Connecting with URL: " + url);
+        logText = logText + "\n" + "Connecting with URL: " + url;
+        mTextView.setText(logText);
         try {
             if (mDataStore != null) {
                 Log.i(DEBUG_TAG, "Connecting with DataStore");
+                logText = logText + "\n" + "Connecting with DataStore";
+                mTextView.setText(logText);
                 mClient = new MqttClient(url, mDeviceId, mDataStore);
             } else {
                 Log.i(DEBUG_TAG, "Connecting with MemStore");
+                logText = logText + "\n" + "Connecting with MemStore";
+                mTextView.setText(logText);
                 mClient = new MqttClient(url, mDeviceId, mMemStore);
             }
         } catch (MqttException e) {
+            logText = logText + "\n" + e;
+            mTextView.setText(logText);
             e.printStackTrace();
+
         }
 
         mConnHandler.post(new Runnable() {
@@ -258,9 +278,13 @@ public class MqttService extends Service implements MqttCallback {
                     mClient.subscribe("attendance", 0);
                     mClient.setCallback(MqttService.this);
                     mStarted = true; // Service is now connected
-                    Log.i(DEBUG_TAG, "Successfully connected and subscribed starting keep alives");
+                    Log.i(DEBUG_TAG, "成功连接并订阅启动保持生命");
+                    logText = logText + "\n" + "成功连接并订阅启动保持生命";
+                    mTextView.setText(logText);
                     startKeepAlives();
                 } catch (MqttException e) {
+                    logText = logText + "\n" + e;
+                    mTextView.setText(logText);
                     e.printStackTrace();
                 }
             }
@@ -345,6 +369,8 @@ public class MqttService extends Service implements MqttCallback {
     private boolean isConnected() {
         if (mStarted && mClient != null && !mClient.isConnected()) {
             Log.i(DEBUG_TAG, "Mismatch between what we think is connected and what is connected");
+            logText = logText + "\n" + "Mismatch between what we think is connected and what is connected";
+            mTextView.setText(logText);
         }
 
         if (mClient != null) {
@@ -361,6 +387,8 @@ public class MqttService extends Service implements MqttCallback {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.i(DEBUG_TAG, "Connectivity Changed...");
+            logText = logText + "\n" + "Connectivity Changed...";
+            mTextView.setText(logText);
         }
     };
 
@@ -382,7 +410,8 @@ public class MqttService extends Service implements MqttCallback {
         }
 
         Log.i(DEBUG_TAG, "Sending Keepalive to " + MQTT_BROKER);
-
+        logText = logText + "\n" + "Sending Keepalive to " + MQTT_BROKER;
+        mTextView.setText(logText);
         MqttMessage message = new MqttMessage(MQTT_KEEP_ALIVE_MESSAGE);
         message.setQos(MQTT_KEEP_ALIVE_QOS);
 
@@ -441,6 +470,12 @@ public class MqttService extends Service implements MqttCallback {
         Log.i(DEBUG_TAG, "  Topic:\t" + topic.getName() +
                 "  Message:\t" + new String(message.getPayload()) +
                 "  QoS:\t" + message.getQos());
+
+        logText = logText + "\n" + "Topic:\t" + topic.getName() +
+                "  Message:\t" + new String(message.getPayload()) +
+                "  QoS:\t" + message.getQos();
+        mTextView.setText(logText);
+
     }
 
     /**
